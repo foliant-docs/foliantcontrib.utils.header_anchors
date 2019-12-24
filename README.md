@@ -4,9 +4,10 @@
 
 HeaderAnchors is a module which converts heading titles into IDs just like it is done by specific backends.
 
-Module exports two main functions:
+Module exports three main functions:
 - **to_id** which converts a title into an ID by the rules of specific backend,
 - **make_unique** which adds a digit to make duplicate heading ID unique, according to the rules of specific backend.
+- **is_flat** which determines whether backend uses flatten preprocessor or not.
 
 # Introduction
 
@@ -25,7 +26,7 @@ pip3 install foliantcontrib.utils.header_anchors
 Then import the main functions:
 
 ```python
->>> from foliant.preprocessors.utils.header_anchors import to_id, make_unique
+>>> from foliant.preprocessors.utils.header_anchors import to_id, make_unique, is_flat
 
 ```
 
@@ -73,5 +74,17 @@ If the name of the backend is not recognized, pandoc will be used as a fallback 
 ```python
 >>> make_unique('my-title', 3, 'nonexistent backend')
 'my-title-2'
+
+```
+
+## is_flat
+
+is_flat function takes the backend name as parameter and returns True if backend uses flatten preprocessor to make a single file out of all chapters.
+
+```python
+>>> is_flat('pandoc')
+True
+>>> is_flat('mkdocs')
+False
 
 ```

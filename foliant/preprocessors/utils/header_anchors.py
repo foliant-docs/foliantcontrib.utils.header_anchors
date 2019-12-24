@@ -4,6 +4,12 @@ import re
 from hashlib import sha1
 
 FALLBACK_BACKEND = 'pandoc'
+FLAT_BACKENDS = ['pandoc', 'slate', 'aglio', 'mdtopdf']
+
+
+def is_flat(backend: str) -> bool:
+    '''Determine whether backend is flat or not.'''
+    return backend in FLAT_BACKENDS
 
 
 def to_id(input_: str, backend: str) -> str:

@@ -2,6 +2,7 @@ import unicodedata
 import re
 
 from hashlib import sha1
+from urllib.parse import quote
 
 FALLBACK_BACKEND = 'pandoc'
 FLAT_BACKENDS = ['pandoc', 'slate', 'aglio', 'mdtopdf']
@@ -173,8 +174,43 @@ def slugify(value, separator):
     return re.sub(r'[%s\s]+' % separator, separator, value)
 
 
+RE_TAGS = re.compile(r'</?[^>]*>', re.UNICODE)
+NO_CASED = 0
+UNICODE_CASED = 1
+RE_ASCII_LETTERS = re.compile(r'[A-Z]', re.UNICODE)
+RE_INVALID_SLUG_CHAR = re.compile(r'[^\w\- ]', re.UNICODE)
+RE_SEP = re.compile(r' ', re.UNICODE)
+
+
+def uslugify(text, sep, cased=NO_CASED, percent_encode=False):
+    """
+    Unicode slugify (`utf-8`).
+
+    This function is copied from `pymdownx.slugs` python package
+    (https://github.com/facelessuser/pymdown-extensions/).
+    """
+
+    # Normalize, Strip html tags, strip leading and trailing whitespace, and lower
+    slug = RE_TAGS.sub('', unicodedata.normalize('NFC', text)).strip()
+
+    if cased == NO_CASED:
+        slug = slug.lower()
+    elif cased == UNICODE_CASED:
+
+        def lower(m):
+            """Lowercase character."""
+            return m.group(0).lower()
+
+        slug = RE_ASCII_LETTERS.sub(lower, slug)
+
+    # Remove non word characters, non spaces, and non dashes, and convert spaces to dashes.
+    slug = RE_SEP.sub(sep, RE_INVALID_SLUG_CHAR.sub('', slug))
+
+    return quote(slug.encode('utf-8')) if percent_encode else slug
+
+
 def to_id_mkdocs(input_: str) -> str:
-    return slugify(input_, '-')
+    return uslugify(input_, '-')
 
 
 def parameterize_slate(string_to_clean: str, sep: str = '-') -> str:

@@ -1,4 +1,4 @@
-![](https://img.shields.io/pypi/v/foliantcontrib.utils.header_anchors.svg)
+[![](https://img.shields.io/pypi/v/foliantcontrib.utils.header_anchors.svg)](https://pypi.org/project/foliantcontrib.utils.header_anchors/)  [![](https://img.shields.io/github/v/tag/foliant-docs/foliantcontrib.utils.header_anchors.svg?label=GitHub)](https://github.com/foliant-docs/foliantcontrib.utils.header_anchors)
 
 # HeaderAnchors
 

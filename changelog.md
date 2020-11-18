@@ -1,3 +1,7 @@
+# 1.0.3
+
+-   Add IDGenerator class.
+
 # 1.0.2
 
 -   Use pymdownx uslugify instead of default Python-Markdown slugify for MkDocs.

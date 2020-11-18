@@ -8,6 +8,36 @@ FALLBACK_BACKEND = 'pandoc'
 FLAT_BACKENDS = ['pandoc', 'slate', 'aglio', 'mdtopdf']
 
 
+class IDGenerator:
+    '''
+    This class generates IDs but counts the number of times they were called.
+    Before returning the generated ID it passes it through the make_unique
+    function to generate the unique ID.
+    '''
+
+    def __init__(self, backend: str):
+        self.registry = {}
+        self.backend = backend
+
+    def generate(self, heading: str) -> str:
+        '''
+        Generate the unique ID for the `heading`.
+
+        :param heading: heading to be converted to ID.
+
+        :returns: unique ID for the heading.
+        '''
+        id_ = to_id(heading, self.backend)
+        self.registry[id_] = self.registry.setdefault(id_, 0) + 1
+        return make_unique(id_, self.registry[id_], self.backend)
+
+    def reset(self):
+        '''
+        Reset all ID count to 0.
+        '''
+        self.registry = {}
+
+
 def is_flat(backend: str) -> bool:
     '''Determine whether backend is flat or not.'''
     return backend in FLAT_BACKENDS
@@ -232,7 +262,7 @@ def parameterize_slate(string_to_clean: str, sep: str = '-') -> str:
 
     parameterized_string = re.sub("[^a-zA-Z0-9_]+", sep, parameterized_string)
 
-    if sep is not None and sep is not '':
+    if sep is not None and sep != '':
         parameterized_string = parameterized_string.strip(sep)
     return parameterized_string.lower()
 

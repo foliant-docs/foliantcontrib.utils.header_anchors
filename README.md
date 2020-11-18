@@ -88,3 +88,30 @@ True
 False
 
 ```
+
+## IDGenerator class
+
+IDGenerator is a class which helps generate unique anchors in seemless way. It records every call to generate an anchor from a title, and if the anchor repeats, it calls make_unique to make it unique.
+
+Here's an example usage:
+
+```python
+>>> from foliant.preprocessors.utils.header_anchors import IDGenerator
+>>> idgen = IDGenerator('pandoc')
+>>> idgen.generate('My title')
+'my-title'
+>>> idgen.generate('Another title!')
+'another-title'
+>>> idgen.generate('My title')
+'my-title-1'
+
+```
+
+After generating id for **My title** for a second time generator had added a `-1` to it. To reset the id count call the `reset` method:
+
+```python
+>>> idgen.reset()
+>>> idgen.generate('My title')
+'my-title'
+
+```

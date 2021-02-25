@@ -45,6 +45,18 @@ Feed a header title to the `to_id` function to get the proper id for each backen
 
 ```
 
+**available backends**:
+
+param | backend
+----- | -------
+`'pandoc'` | [Pandoc](https://foliant-docs.github.io/docs/backends/pandoc/)
+`'mdtopdf'` | [MdToPdf](https://foliant-docs.github.io/docs/backends/mdtopdf/)
+`'aglio'` | [Aglio](https://foliant-docs.github.io/docs/backends/aglio/)
+`'mkdocs'` | [MkDocs](https://foliant-docs.github.io/docs/backends/mkdocs/)
+`'slate'` | [Slate](https://foliant-docs.github.io/docs/backends/slate/)
+`'confluence'` | [Confluence](https://foliant-docs.github.io/docs/backends/confluence/)
+`'no_transform'` | no transformations, return string as is
+
 If the name of the backend is not recognized, pandoc will be used as a fallback backend:
 
 ```python

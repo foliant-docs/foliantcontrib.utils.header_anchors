@@ -1,3 +1,7 @@
+# 1.0.4
+
+-   Add `no_transform` to_id generator.
+
 # 1.0.3
 
 -   Add IDGenerator class.

@@ -60,6 +60,7 @@ def to_id(input_: str, backend: str) -> str:
         'mkdocs': to_id_mkdocs,
         'slate': to_id_slate,
         'confluence': to_id_confluence,
+        'no_transform': to_id_no_transform,
     }
     if backend not in BACKEND_MAP:
         backend = FALLBACK_BACKEND
@@ -272,6 +273,10 @@ def to_id_slate(input_: str) -> str:
     source = re.sub(r'<[\w_:]*>', '', input_)
     source = parameterize_slate(source)
     return source if source else sha1(input_.encode('utf-8')).hexdigest()[:10]
+
+
+def to_id_no_transform(input_: str) -> str:
+    return input_
 
 
 def make_unique_mkdocs(input_: str, occurrence: int = 1) -> str:

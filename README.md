@@ -1,5 +1,7 @@
 [![](https://img.shields.io/pypi/v/foliantcontrib.utils.header_anchors.svg)](https://pypi.org/project/foliantcontrib.utils.header_anchors/)  [![](https://img.shields.io/github/v/tag/foliant-docs/foliantcontrib.utils.header_anchors.svg?label=GitHub)](https://github.com/foliant-docs/foliantcontrib.utils.header_anchors)
 
+**This package is deprecated and will be removed in future. HeaderAnchors moved to the [main utils package](https://github.com/foliant-docs/foliantcontrib.utils).**
+
 # HeaderAnchors
 
 HeaderAnchors is a module which converts heading titles into IDs just like it is done by specific backends.
